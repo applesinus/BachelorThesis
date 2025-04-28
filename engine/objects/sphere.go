@@ -57,6 +57,10 @@ func NewSphere(radius float64, id string) Sphere {
 	}
 }
 
+func (s *Sphere) GetId() string {
+	return s.id
+}
+
 func (s *Sphere) SetPosition(position vector.Vector3D) {
 	s.position = &position
 }

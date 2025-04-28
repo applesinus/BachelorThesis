@@ -24,4 +24,6 @@ type Object interface {
 
 	ApplyRotation(vector.Angle3D) error
 	GetRotation() (*vector.Angle3D, error)
+
+	GetId() string
 }
