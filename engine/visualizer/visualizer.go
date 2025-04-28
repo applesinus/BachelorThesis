@@ -1,62 +1,54 @@
 package visualizer
 
 import (
-	"BachelorThesis/engine/constants"
+	"BachelorThesis/engine/objects"
 
-	"fmt"
-	"image/color"
-	"log"
-
-	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
+	"github.com/g3n/engine/app"
+	"github.com/g3n/engine/camera"
+	"github.com/g3n/engine/core"
+	"github.com/g3n/engine/geometry"
+	"github.com/g3n/engine/graphic"
+	"github.com/g3n/engine/light"
+	"github.com/g3n/engine/material"
+	"github.com/g3n/engine/math32"
 )
 
 const (
 	title = "Bachelor Thesis Visualization"
 )
 
-// Game implements ebiten.Game interface.
-type Game struct {
-	count     int
-	algorithm string
-	endChan   chan bool
-}
+func Start(algorithm string, endChan chan bool, pool []objects.Object) {
+	a := app.App()
+	scene := core.NewNode()
 
-// Update proceeds the game state.
-func (g *Game) Update() error {
-	g.count++
+	cam := camera.New(1)
+	cam.SetPosition(0, 0, 3)
+	scene.Add(cam)
 
-	select {
-	case <-g.endChan:
-		return ebiten.Termination
-	default:
-	}
+	light := light.NewDirectional(&math32.Color{1, 1, 1}, 1)
+	scene.Add(light)
 
-	return nil
-}
+	geom := geometry.NewBox(1, 1, 1)
+	mat := material.NewStandard(&math32.Color{1, 0, 0})
+	mesh := graphic.NewMesh(geom, mat)
+	scene.Add(mesh)
 
-// Draw draws the game screen.
-func (g *Game) Draw(screen *ebiten.Image) {
-	screen.Fill(color.Gray{0x33})
-	msg := fmt.Sprintf("TPS: %0.2f\nFrame: %d\nAlgorithm: %s\n", ebiten.ActualTPS(), g.count, g.algorithm)
+	a.Run(scene)
 
-	ebitenutil.DebugPrint(screen, msg)
-}
+	/*for {
+		select {
+		case <-endChan:
+			return
 
-// Layout takes the outside size (e.g., the window size) and returns the (logical) screen size.
-func (g *Game) Layout(outsideWidth, outsideHeight int) (int, int) {
-	return constants.WindowWidth, constants.WindowHeight
-}
+		default:
+			offset++
+			rl.BeginDrawing()
+			rl.ClearBackground(rl.RayWhite)
 
-func Start(algorithm string, endChan chan bool) {
-	ebiten.SetWindowSize(constants.WindowWidth, constants.WindowHeight)
-	ebiten.SetWindowTitle(title)
+			header = fmt.Sprintf("FPS: %v\ni=%v", rl.GetFPS(), offset)
+			rl.DrawText(header, int32(offset), 0, 20, rl.DarkGray)
 
-	game := &Game{}
-	game.algorithm = algorithm
-	game.endChan = endChan
-
-	if err := ebiten.RunGame(game); err != nil {
-		log.Fatal(err)
-	}
+			rl.EndDrawing()
+		}
+	}*/
 }
