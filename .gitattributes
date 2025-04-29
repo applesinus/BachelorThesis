@@ -1,5 +1,4 @@
 # Auto detect text files and perform LF normalization
 * text=auto
 
-resources_compiled/** linguist-vendored=true
 resources_compiled/** linguist-detectable=false
