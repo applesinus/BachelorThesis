@@ -16,7 +16,7 @@ type Object interface {
 	SetPosition(vector.Vector3D)
 	GetPosition() (*vector.Vector3D, error)
 
-	AppllyVelocity(vector.Vector3D) error
+	ApplyVelocity(vector.Vector3D) error
 	GetVelocity() (*vector.Vector3D, error)
 
 	SetAngle(vector.Angle3D)
