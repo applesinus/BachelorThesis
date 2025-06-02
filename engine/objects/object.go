@@ -27,3 +27,8 @@ type Object interface {
 
 	GetId() string
 }
+
+type ObjectPair struct {
+	ObjectA *Object
+	ObjectB *Object
+}

@@ -63,3 +63,7 @@ func (v Vector3D) Mul(f float64) *Vector3D {
 		Z: v.Z * f,
 	}
 }
+
+func (v Vector3D) Dot(v2 Vector3D) float64 {
+	return v.X*v2.X + v.Y*v2.Y + v.Z*v2.Z
+}

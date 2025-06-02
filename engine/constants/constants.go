@@ -20,3 +20,19 @@ const (
 	MSI = "Method of sequential impulses"
 	EPA = "Expanding Polytope Algorithm"
 )
+
+const (
+	N   = " (No Parallel)"
+	PT  = " (Parallel trivial)"
+	PNT = " (Parallel non trivial)"
+
+	ParallelPipeline   = "Parallel Pipeline"
+	SequentialPipeline = "Sequential Pipeline"
+)
+
+var (
+	AlgoType          = N
+	SecondaryAlgoType = N
+	ResolveAlgoType   = N
+	Pipeline          = SequentialPipeline
+)
